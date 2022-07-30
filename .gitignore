@@ -2,3 +2,4 @@ venv/*
 venv
 django_project/account
 django_project/templates
+django_project/models.py
