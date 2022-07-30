@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+{% load bootstrap %}
+
+<link rel="stylesheet" href='{% static "/profile.css" %}' type="text/css">
+
+{% for message in messages %}
+<div class="container-fluid p-0">
+<div class="alert {{ message.tags }} alert-dismissible" role="alert" >
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+    </button>
+    {{ message }}
+</div>
+</div>
+{% endfor %}
+
+<div class="top-row">
+    <h4 class="top-name">Account</h4>
+</div>
+<hr class="line">
+
+<!-- for publishers show their editorial team -->
+{% if request.user.userprofile.user_type == 'P' %}
+
+<div class="top-row" style="margin-bottom: 40px; flex-direction: column; align-items: flex-start;">
+    <h5 class="top-name" style="margin-bottom: 15px;">Invite Associate Editors</h5>
+    <div class="add-editor-input-container">
+        <!-- accept editor username, then send invite link for them to sign up -->
+        <input id="add-editor-input" type="text" class="add-editor-text-input" placeholder="Editor Username" aria-placeholder="Editor Username...">
+        <button id="add-editor-submit" type="submit" class="add-editor-text-submit" value="Send">Add Editor</button>
+    </div>
+</div>
+
+<div class="top-row" style="flex-direction: column; align-items: flex-start; height: 100%">
+    <h5 class="top-name">Associate Editors</h5>
+    <!-- if there are no editors, display a message -->
+    {% if editors%}
+    <div class="editor-container">
+        {% for group in editors %}
+            <div class="single-editor-container">
+                <p>{{ group.editor }}</p>
+                <button id="remove-editor-submit" type="submit" class="remove-editor-text-submit" value={{group.editor}}>Remove</button>
+            </div>
+        {% endfor %}
+    </div>
+    {% else %}
+        <div>
+            <p style="padding-top: 7px; padding-left: 15px;">No editors have been invited.</p>
+        </div>
+    {% endif %}
+</div>
+
+{% endif %}
+
+<!-- for researchers, show their billing information -->
+{% if request.user.userprofile.user_type == 'R' %}
+
+<div class="top-row" style="margin-bottom: -25px;">
+    {% if not request.user.userprofile.billing_saved %}
+    <h5 class="top-name">Billing Information <button class="btn btn-primary" style="margin-left: 15px; margin-bottom: 5px" onclick="location.href='{% url 'checkout' %}';">Add Billing</button></h5>
+    {% else %}
+    <h5 class="top-name">Billing Information <button class="btn btn-primary" style="margin-left: 15px; margin-bottom: 5px" onclick="location.href='{% url 'checkout' %}';">Update Billing</button></h5>
+    {% endif %}
+</div>
+
+{% endif %}
+
+<!-- for all users show ability to change password -->
+<div class="top-row" style="margin-bottom: 0px;">
+    <h5 class="top-name">Update Password</h5>
+</div>
+<div class="form-container">
+    <form action="." id="settings-form" method="post"> 
+        {% csrf_token %}    
+        {{ form|bootstrap }}
+        <input class="btn btn-primary" type="submit" value = "Submit"/>
+    </form>
+</div>
+
+<script>
+$(".save-button").click(function (event) {
+    event.preventDefault();
+        
+    $.ajax({
+        url: "{% url 'settings' %}",
+        type: "POST",
+        data: {
+            form: $(this).parent().serialize(),
+            csrfmiddlewaretoken: '{{ csrf_token }}'
+        },
+        success: function(response) {
+            alert(response["message"]);
+        },
+    })
+})
+</script>
+
+<script>
+    var username = "{{ request.user.username }}";
+
+    document.querySelector('#add-editor-input').onkeyup = function(e) {
+        if (e.keyCode === 13) {  // enter, return
+            document.querySelector('#add-editor-submit').click();
+        }
+    };
+
+
+    // edit here to instead send a email out with the journal name to designated sign up page
+    document.querySelector('#add-editor-submit').onclick = function(e) {
+
+        e.preventDefault();
+
+        var editor_input_dom = document.getElementById('add-editor-input');
+        var editor_input_text = editor_input_dom.value;
+
+        $.ajax({
+            url: "{% url 'add_editor' %}",
+            type: "POST",
+            data: {
+                editor: editor_input_text,
+                journal_username: '{{ request.user.username }}',
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+            },
+            success: function(response) {
+                window.location.reload();
+            },
+        })
+
+        editor_input_dom.value = '';
+    };
+
+    var removeEditorButtons = document.getElementsByClassName('remove-editor-text-submit');
+
+
+    var removeEditorFunction = function(e) {
+
+        e.preventDefault();
+
+        var editor_input_dom = document.getElementById('add-editor-input');
+        var editor_name = $(this).val();
+
+        $.ajax({
+            url: "{% url 'remove_editor' %}",
+            type: "POST",
+            data: {
+                editor: editor_name,
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+            },
+            success: function(response) {
+                window.location.reload();
+            },
+        })
+    };
+
+    for (var i = 0; i < removeEditorButtons.length; i++) {
+        removeEditorButtons[i].addEventListener('click', removeEditorFunction, false);
+    }   
+
+</script>
+
+{% endblock %}

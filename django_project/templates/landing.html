@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claudius Scholar</title>
+
+    {% load static %}
+    <link rel="stylesheet" href='{% static "/landing.css" %}' type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="icon" href='{% static "/imgs/logo-circle.png" %}'>
+
+    <!--jquery-->
+    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="top-nav" style="position:relative; z-index: 100000">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <a class="navbar-brand" href="{% url 'landing' %}"><h3 class="logo"><strong>Claudius</strong> Scholar</h3></a>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a href="https://claudius.gitbook.io/product-docs/" target="_blank">Docs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="sign-up" href="{% url 'user_sign_up' %}">Sign Up</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'user_login' %}">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+    <div class="main">
+        <div class="hero-container">
+            <div class="hero">
+                <h1 class="title">Legal Academic Publishing Done Right</h1>
+                <h6 class="subtitle">The legal publishing cycle was the end of sanity. Claudius Scholar is the beginning.</h6>
+                <div class="cta">
+                    <a href="https://calendly.com/claudius-scholar-demo">Schedule demo</a>
+                </div>
+            </div>
+            <div class="visual">
+                <img src="{% static '/imgs/logo-circle.png' %}" style="max-width: 100px" alt="">
+            </div>
+        </div>
+        <div class="claudius-container-1">
+            <div class="claudius">
+                About Us
+                <p style="margin-top: 20px">
+                    Claudius Scholar is designed with active input from law professors, legal practitioners, judges, and law student members of law reviews.</p> 
+                <p style="font-size: 20px;">
+                    It simplifies authors’ and editors’ lives while ensuring that, as in other fields, good scholarship finds the appropriate forum for its dissemination, and good forums find the appropriate scholarship for their pages.  
+                </p>
+            </div>
+        </div>
+        <div class="claudius-container-3">
+            <div class="bottom-box-title" style="display: flex; align-self: center; margin-top: 50px; color: rgb(23,20,61)">
+                <h4>For Editors</h4>
+            </div>
+            <div class="description-subcontainer">
+                <div class="steps-container">
+                    <div class="step-1-b">
+                        <div class="step-title">
+                            Quick responses
+                        </div>
+                        <div class="step-description">
+                            With offer windows standardized to 14 days, receive a response to your offer in a timely manner.                        
+                        </div>
+                    </div>
+                    <div class="step-2-b">
+                        <div class="step-title">
+                            Verified expedite requests
+                        </div>
+                        <div class="step-description">
+                            No need to check if an author is pretending to have an offer they don’t have.
+                        </div>
+                    </div>
+                    <div class="step-1-b">
+                        <div class="step-title">
+                            Money back
+                        </div>
+                        <div class="step-description">
+                            10% of Claudius Scholar’s profits go back to its student-run journal subscribers.                        
+                        </div>
+                    </div>
+                    <div class="step-2-b">
+                        <div class="step-title">
+                            No expedite abuse
+                        </div>
+                        <div class="step-description">
+                            Your time won’t be wasted on empty reviews. If an author receives at least one offer for an article, they cannot withdraw entirely. They must accept an offer before the end of the submissions cycle.
+                        </div>
+                    </div>
+                    <div class="step-1-b">
+                        <div class="step-title">
+                            Cut down on submissions
+                        </div>
+                        <div class="step-description">
+                            Restrict submissions to only those areas of scholarship you are actively seeking.                        
+                        </div>
+                    </div>
+                    <div class="step-2-b">
+                        <div class="step-title">
+                            Help for your assistant editors
+                        </div>
+                        <div class="step-description">
+                            Triage articles according to various metrics, including whether the article has received offers from a specific tier of journal.
+                        </div>
+                    </div>
+                    <div class="step-1-b">
+                        <div class="step-title">
+                            No more confusion
+                        </div>
+                        <div class="step-description">
+                            Open/close, accept/reject, filter/screen--everything is simpler and more intuitive with Claudius Scholar.                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="claudius-container-2">
+            <div class="bottom-box-title" style="display: flex; align-self: center; margin-top: 50px; color: whitesmoke">
+                <h4>For Authors</h4>
+            </div>
+            <div class="description-subcontainer">
+                <div class="steps-container">
+                    <div class="step-1-w">
+                        <div class="step-title">
+                            Standardized windows
+                        </div>
+                        <div class="step-description">
+                            Offer windows are standardized to 14 days for all journals. 
+                        </div>
+                    </div>
+                    <div class="step-2-w">
+                        <div class="step-title">
+                            Low cost
+                        </div>
+                        <div class="step-description">
+                            $5/submission. If you’re a student or qualify as low-income, only $2. 
+                        </div>
+                    </div>
+                    <div class="step-1-w">
+                        <div class="step-title">
+                            No more zombie journals
+                        </div>
+                        <div class="step-description">
+                            Clear communication from journals regarding when they are open/closed and what areas within legal scholarship they are actively seeking.
+                        </div>
+                    </div>
+                    <div class="step-2-w">
+                        <div class="step-title">
+                            No endless waits
+                        </div>
+                        <div class="step-description">
+                            If a journal is open, it must review all manuscripts submitted to it within two months of the submission date.
+                        </div>
+                    </div>
+                    <div class="step-1-w">
+                        <div class="step-title">
+                            Guaranteed feedback
+                        </div>
+                        <div class="step-description">
+                            If a journal accepts an article for review, it must read the article and provide Claudius Scholar’s tailored scale-based feedback with the accept/reject decision.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-wrapper">
+            <div class="footer-container">
+                <div class="logo">
+                    <h4>Claudius Scholar</h4>
+                    <p>Legal Academic Publishing Done Right</p>
+                </div>
+                <div class="legal">
+                    <div class="privacy-policy">
+                        <a href="https://www.claudius.ai/privacy-policy.html">Privacy Policy</a>
+                    </div>
+                    <div class="security-protocol">
+                        <a href="https://www.claudius.ai/security-policy.html">Security Protocol</a>
+                    </div>
+                    <div class="tos">
+                        <a href="https://www.claudius.ai/terms-of-service.html">Terms of Service</a>
+                    </div>
+                    <div class="legal-service">
+                        <a href="https://www.claudius.ai/legal-service.html">Legal Service</a>
+                    </div>
+                </div>
+                <div class="copyright">
+                    Copyright © Claudius Legal Intelligence 2020
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+</html>
+
+<script>
+    $('#sign-up').on('click', function() {
+        $('.form-wrapper').removeClass('is-active');
+    });
+</script>

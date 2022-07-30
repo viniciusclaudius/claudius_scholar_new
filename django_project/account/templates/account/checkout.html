@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<link rel="stylesheet" href='{% static "/profile.css" %}' type="text/css">
+
+<head>
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+
+<div class="top-row">
+    <h4 class="top-name">Add Billing Information</h4>
+</div>
+<hr class="line">
+<div style="display: flex; justify-content: center; align-items: center; margin-top: 25px; flex-direction: column;">
+    <p style="width: 80%; max-width: 800px; margin-bottom: 25px">
+        Disclaimer: By providing your billing information, you agree to be charged $5 for every journal that accepts your submission for review. If a journal declines to review your submission, you will not be charged for submitting to that journal.
+    </p>
+    <form id="payment-form">
+        <div id="payment-element">
+          <!-- Elements will create form elements here -->
+        </div>
+        <button id="submit" class="btn btn-primary" style="margin-top: 15px; width: 100%">Submit</button>
+        <div id="error-message">
+          <!-- Display error message to your customers here -->
+        </div>
+    </form>
+</div>
+
+<script>
+    const stripe = Stripe('pk_test_51HQkdwI9v8S2LzxgG4059754Zo0SJ7kEJ5zLM4Wr1Ns2P7q8Hmvt03Y7Gtt4HgzECE2DjUUdpkrLDjTMdQElJTiV005BZunuND');
+    const options = {
+    clientSecret: '{{CLIENT_SECRET}}',
+    };
+
+    // Set up Stripe.js and Elements to use in checkout form, passing the client secret obtained in step 2
+    const elements = stripe.elements(options);
+
+    // Create and mount the Payment Element
+    const paymentElement = elements.create('payment');
+    paymentElement.mount('#payment-element');
+
+    const form = document.getElementById('payment-form');
+
+    form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const {error} = await stripe.confirmSetup({
+            //`Elements` instance that was used to create the Payment Element
+            elements,
+            confirmParams: {
+            return_url: 'http://127.0.0.1:8000/account/status',
+            }
+        });
+
+        if (error) {
+            // This point will only be reached if there is an immediate error when
+            // confirming the payment. Show error to your customer (for example, payment
+            // details incomplete)
+            const messageContainer = document.querySelector('#error-message');
+            messageContainer.textContent = error.message;
+        } else {
+            // Your customer will be redirected to your `return_url`. For some payment
+            // methods like iDEAL, your customer will be redirected to an intermediate
+            // site first to authorize the payment, then redirected to the `return_url`.
+        }
+    });
+</script>
+
+{% endblock %}

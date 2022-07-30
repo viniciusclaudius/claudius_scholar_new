@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claudius Scholar</title>
+
+    {% load static %}
+    <link rel="stylesheet" href='{% static "/base.css" %}' type="text/css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="icon" href='{% static "/imgs/logo-circle.png" %}'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!--jquery-->
+    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light">
+        {% if user.is_authenticated %}
+        <a class="navbar-brand" href="{% url 'dashboard' %}"><h3 class="logo"><span>Claudius</span> Scholar</h3></a>
+        {% else %}
+        <a class="navbar-brand" href="{% url 'user_login' %}"><h3 class="logo"><span>Claudius</span> Scholar</h3></a>
+        {% endif %}
+        
+        {% if user.is_authenticated %}
+        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a href="{% url 'dashboard' %}">Dashboard</a>
+                </li>
+
+                {% if request.user.userprofile.user_type == 'R' %}
+                <li class="nav-item">
+                    <a href="{% url 'journals' %}">Journals</a>
+                </li>
+                {% endif %}
+
+                <li class="nav-item">
+                    <a href="{% url 'settings' %}">Account</a>
+                </li>
+
+                {% if request.user.userprofile.user_type == 'R' or request.user.userprofile.user_type == 'E' %}
+                <li class="nav-item">
+                    <a href="{% url 'personal_profile' %}">Profile</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a href="{% url 'journal_profile' %}">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'analytics' %}">Analytics</a>
+                </li>
+                {% endif %}
+
+                <li class="nav-item">
+                    <a href="{% url 'user_logout' %}">Logout</a>
+                </li>
+            </ul>
+        </div>
+        {% endif %}
+    </nav>
+
+    <div class="main">
+
+        {% load bootstrap %}
+        <div class="container" style="padding: 15px 0px;">
+
+            <h4 class="text-center" style="margin-top: 35px"><strong>Thank you for choosing Claudius Scholar!</strong></h4>
+            <hr>
+            <h5  class="text-center">We value your feedback. Let us know how we can improve below!</h5>
+            <!-- <h6">We value your thoughts and suggestions,</h6> -->
+            <br>
+
+            <div style="display: flex; justify-content: center;">
+                <form method="post" style="margin: 20px 0px 100px 0px; max-width: 750px; width: 100%">
+                    {% csrf_token %}
+                    {{ form|bootstrap }}
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Send Feedback</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+     
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+</html>
