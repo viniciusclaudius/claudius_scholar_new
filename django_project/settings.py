@@ -26,7 +26,8 @@ SECRET_KEY = 'bg0n1#=^&$a32b$ft=qupn%!56ks^vs$x9!p)mr8x+y+%u%c$)'
 DEBUG = True
 
 ALLOWED_HOSTS = ['claudius-scholar.us-west-2.elasticbeanstalk.com', 
-                '172.31.24.8']
+                '172.31.24.8',
+                '127.0.0.1']
 
 
 # Application definition

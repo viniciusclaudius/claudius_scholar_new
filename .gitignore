@@ -1,2 +1,4 @@
 venv/*
 venv
+django_project/account
+django_project/templates
