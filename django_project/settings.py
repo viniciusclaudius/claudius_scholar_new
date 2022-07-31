@@ -1,7 +1,7 @@
 import os
 import sys
+import environ
 
-print(os.environ, flush = True)
 """
 Django settings for django_project project.
 
@@ -16,6 +16,11 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 
+env = environ.Env()
+
+environ.Env.read_env()
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
@@ -24,7 +29,7 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'bg0n1#=^&$a32b$ft=qupn%!56ks^vs$x9!p)mr8x+y+%u%c$)'
+SECRET_KEY = env.ENVIRON['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
