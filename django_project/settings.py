@@ -48,7 +48,11 @@ DEBUG = False
 #     CSRF_COOKIE_SECURE = True
 #     SECURE_SSL_REDIRECT = False
 
-ALLOWED_HOSTS = [env.ENVIRON['ALLOWED_HOST1'],env.ENVIRON['ALLOWED_HOST2']] 
+ALLOWED_HOSTS = [env.ENVIRON['ALLOWED_HOST1'],
+                env.ENVIRON['ALLOWED_HOST2'],
+                '172.31.24.8',
+                '52.88.223.181',
+                '100.20.175.107'] 
 
 
 # Application definition
