@@ -48,9 +48,7 @@ DEBUG = False
 #     CSRF_COOKIE_SECURE = True
 #     SECURE_SSL_REDIRECT = False
 
-ALLOWED_HOSTS = ['claudius-scholar.us-west-2.elasticbeanstalk.com', 
-                '172.31.24.8',
-                '127.0.0.1']
+ALLOWED_HOSTS = [env.ENVIRON['ALLOWED_HOST1'],env.ENVIRON['ALLOWED_HOST2']] 
 
 
 # Application definition
