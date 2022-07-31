@@ -27,21 +27,21 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 SECRET_KEY = 'bg0n1#=^&$a32b$ft=qupn%!56ks^vs$x9!p)mr8x+y+%u%c$)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-# Dev vs. Production security
-RUNNING_DEVSERVER = (len(sys.argv) > 1 and sys.argv[1] == 'runserver')
-if RUNNING_DEVSERVER:
-    DEBUG = True
-    SESSION_COOKIE_SECURE = False
-    CSRF_COOKIE_SECURE = False
-    SECURE_SSL_REDIRECT = False
-else:
-    DEBUG = False
-    # TODO: implement changges to support changing these to true
-    SESSION_COOKIE_SECURE = True
-    CSRF_COOKIE_SECURE = True
-    SECURE_SSL_REDIRECT = False
+# # Dev vs. Production security
+# RUNNING_DEVSERVER = (len(sys.argv) > 1 and sys.argv[1] == 'runserver')
+# if RUNNING_DEVSERVER:
+#     DEBUG = True
+#     SESSION_COOKIE_SECURE = False
+#     CSRF_COOKIE_SECURE = False
+#     SECURE_SSL_REDIRECT = False
+# else:
+#     DEBUG = False
+#     # TODO: implement changges to support changing these to true
+#     SESSION_COOKIE_SECURE = True
+#     CSRF_COOKIE_SECURE = True
+#     SECURE_SSL_REDIRECT = False
 
 ALLOWED_HOSTS = ['claudius-scholar.us-west-2.elasticbeanstalk.com', 
                 '172.31.24.8',
