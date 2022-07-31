@@ -1,7 +1,7 @@
 import os
 import sys
 import environ
-
+import logging
 """
 Django settings for django_project project.
 
@@ -19,7 +19,7 @@ from pathlib import Path
 env = environ.Env()
 
 environ.Env.read_env()
-
+logging.warning('#################### \n \n HERE ARE THE ENVIRONMENT KEYS{}  \n \n ####################'.format(env.ENVIRON.keys()))
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
